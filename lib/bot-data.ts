@@ -1,0 +1,238 @@
+import { CommandEntry, MetadataSourceEntry } from './types';
+
+export const VAULT_STATS = {
+  totalPapers: 10_924,
+  institution: 'MZUNI',
+  duplicateGuardDays: 3,
+  storageBackend: 'Drime Cloud + Local Index',
+  sampleQueries: [
+    '.paper CHEM 3601',
+    '.paper NURS 2201',
+    '.paper BMNU 2303 2022',
+    '.paper WSSV 2305',
+    '.countpapers',
+  ],
+};
+
+export const BOT_COMMANDS: CommandEntry[] = [
+  {
+    name: 'song',
+    aliases: ['play', 'music', 'yta'],
+    category: 'media',
+    usage: '.song <name|url>',
+    example: '.song Alan Walker Faded',
+    summary: 'Music MP3',
+  },
+  {
+    name: 'mfind',
+    aliases: ['findmusic', 'msearch'],
+    category: 'media',
+    usage: '.mfind <name|link> [--audio|--video] [720] [--first]',
+    example: '.mfind Alan Walker Faded --video',
+    summary: 'Keyless music search → MP3 or music video',
+  },
+  {
+    name: 'embed',
+    aliases: ['linkinfo', 'unembed'],
+    category: 'media',
+    usage: '.embed <link> [--audio|--video] [720] [--first]',
+    example: '.embed https://open.spotify.com/embed/track/4cOdK2wGLETKBW3PvgPWqT',
+    summary: 'Resolve an embed/player link to its canonical URL (or deliver its audio/video)',
+  },
+  {
+    name: 'mdiag',
+    aliases: ['mediadiag', 'ownmedia'],
+    category: 'media',
+    usage: '.mdiag [search phrase]',
+    example: '.mdiag namadingo tuli',
+    summary: 'Test every brick of the standalone music/media downloader on this host',
+  },
+  {
+    name: 'ytv',
+    aliases: ['ytvideo', 'ytmp4', 'video'],
+    category: 'media',
+    usage: '.ytv <name|url> [360..1080]',
+    example: '.ytv Interstellar 720',
+    summary: 'YouTube MP4',
+  },
+  {
+    name: 'dl',
+    aliases: ['download', 'save', 'fetch'],
+    category: 'media',
+    usage: '.dl <url> [audio|video] [quality]',
+    example: '.dl https://vm.tiktok.com/ZMexample/',
+    summary: 'Universal URL downloader',
+  },
+  {
+    name: 'spotify',
+    aliases: ['sp', 'spot'],
+    category: 'media',
+    usage: '.spotify <url|title>',
+    example: '.spotify https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT',
+    summary: 'Spotify to MP3',
+  },
+  {
+    name: 'tiktok',
+    aliases: ['tt'],
+    category: 'media',
+    usage: '.tiktok <url>',
+    example: '.tiktok https://vm.tiktok.com/ZMexample/',
+    summary: 'TikTok video',
+  },
+  {
+    name: 'x',
+    aliases: ['twitter'],
+    category: 'media',
+    usage: '.x <url>',
+    example: '.x https://x.com/vercel/status/123456789',
+    summary: 'X / Twitter video',
+  },
+  {
+    name: 'fb',
+    aliases: ['facebook'],
+    category: 'media',
+    usage: '.fb <url>',
+    example: '.fb https://fb.watch/example/',
+    summary: 'Facebook video',
+  },
+  {
+    name: 'instagram',
+    aliases: ['ig', 'reels'],
+    category: 'media',
+    usage: '.instagram <url>',
+    example: '.ig https://www.instagram.com/reel/example/',
+    summary: 'Instagram reel or post',
+  },
+  {
+    name: 'reddit',
+    aliases: [],
+    category: 'media',
+    usage: '.reddit <title> [--audio] [480p]',
+    example: '.reddit <video title>',
+    summary: 'Search Reddit by title',
+  },
+  {
+    name: 'movie',
+    aliases: ['film', 'mv'],
+    category: 'media',
+    usage: '.movie <title> [year] [720|1080]',
+    example: '.movie Dune 2021 1080',
+    summary: 'Full-length movie',
+  },
+  {
+    name: 'series',
+    aliases: ['tvshow', 'episode'],
+    category: 'media',
+    usage: '.series <title> s01e03 | s01 1-6',
+    example: '.series Severance s01e01 720',
+    summary: 'TV episodes & packs',
+  },
+  {
+    name: 'paper',
+    aliases: ['papers', 'pp'],
+    category: 'vault',
+    usage: '.paper <code> [module] [year]',
+    example: '.paper CHEM 3601',
+    summary: 'Past exam PDFs (up to 10)',
+  },
+  {
+    name: 'countpapers',
+    aliases: [],
+    category: 'vault',
+    usage: '.countpapers',
+    example: '.countpapers',
+    summary: 'Vault PDF count',
+  },
+  {
+    name: 'sticker',
+    aliases: ['s'],
+    category: 'vault',
+    usage: '.sticker',
+    example: '.sticker',
+    summary: 'Image/video to WebP sticker',
+  },
+  {
+    name: 'viewonce',
+    aliases: ['vv'],
+    category: 'vault',
+    usage: '.viewonce',
+    example: '.vv',
+    summary: 'Reveal view-once media',
+  },
+  {
+    name: 'providers',
+    aliases: ['moviestatus'],
+    category: 'vault',
+    usage: '.providers | .moviestatus',
+    example: '.providers',
+    summary: 'Active download providers',
+  },
+  {
+    name: 'ping',
+    aliases: ['menu', 'info', 'debrid'],
+    category: 'vault',
+    usage: '.ping | .menu | .info',
+    example: '.ping',
+    summary: 'Latency & command index',
+  },
+  {
+    name: 'allow',
+    aliases: ['disallow', 'listusers'],
+    category: 'admin',
+    usage: '.allow <number> | .disallow | .listusers',
+    example: '.allow 265991234567',
+    summary: 'Whitelist control',
+    ownerOnly: true,
+  },
+  {
+    name: 'status',
+    aliases: ['restart', 'on', 'off'],
+    category: 'admin',
+    usage: '.status | .restart | .on | .off',
+    example: '.status',
+    summary: 'Server status & power',
+    ownerOnly: true,
+  },
+  {
+    name: 'cookies',
+    aliases: ['ytdl', 'refreshpapers'],
+    category: 'admin',
+    usage: '.cookies | .ytdl | .refreshpapers',
+    example: '.ytdl',
+    summary: 'Engine & index tools',
+    ownerOnly: true,
+  },
+];
+
+// The admin catalog groups some distinct commands into one row. Each member
+// entry must instead copy the actual command the user searched for.
+export const MEMBER_COMMANDS = BOT_COMMANDS.filter((command) => !command.ownerOnly).flatMap((command) => {
+  if (command.name === 'ping') return [
+    { ...command, name: 'ping', aliases: ['p'], category: 'general', usage: '.ping', example: '.ping', summary: 'Check response time' },
+    { ...command, name: 'menu', aliases: ['help', 'commands'], category: 'general', usage: '.menu [section]', example: '.menu', summary: 'Show the command menu' },
+    { ...command, name: 'info', aliases: ['meta', 'ids', 'lookup'], category: 'general', usage: '.info [series] <title>', example: '.info Inception', summary: 'Look up movie or series details' },
+    { ...command, name: 'debrid', aliases: ['rd', 'debridstatus'], category: 'general', usage: '.debrid', example: '.debrid', summary: 'Movie source information' },
+  ];
+  if (command.name === 'providers') return [
+    { ...command, aliases: ['sources'], category: 'general', usage: '.providers', example: '.providers' },
+    { ...command, name: 'moviestatus', aliases: ['moviestats', 'enginestats'], category: 'general', usage: '.moviestatus', example: '.moviestatus', summary: 'Check download engine status' },
+  ];
+  const extraAliases: Record<string, string[]> = {
+    paper: ['pastpaper'], countpapers: ['listpapers', 'papercount', 'vaultcount'],
+    sticker: ['stiker', 'stc'], viewonce: ['readvo', 'read', 'readviewonce'], dl: ['getvid'],
+    spotify: ['spotdl'], ytv: ['playvid'], x: ['xtwitter'], instagram: ['insta', 'igdl'], fb: ['fbdl', 'facebookdl'],
+  };
+  return [{ ...command, aliases: [...command.aliases, ...(extraAliases[command.name] || [])], category: ['sticker', 'viewonce'].includes(command.name) ? 'general' : command.category }];
+});
+
+
+export const METADATA_SOURCES: MetadataSourceEntry[] = [
+  { id: 'moviebox', label: '#1 moviebox', scope: 'Fast CDN', keyless: true, note: 'MP4/SRT' },
+  { id: 'vixsrc', label: '#2 vixsrc', scope: 'Stream', keyless: true, note: 'HLS' },
+  { id: 'vidlink', label: '#3 vidlink', scope: 'Stream', keyless: true, note: 'MP4/HLS' },
+  { id: 'videasy', label: '#4 videasy', scope: 'Stream', keyless: true, note: 'HLS' },
+  { id: 'yts', label: '#5 yts', scope: 'Movies', keyless: true, note: 'P2P' },
+  { id: 'torrentio', label: '#6 torrentio', scope: 'Multi', keyless: true, note: 'P2P' },
+  { id: 'eztv', label: '#7 eztv', scope: 'Series', keyless: true, note: 'P2P' },
+  { id: 'nyaa', label: '#8 nyaa', scope: 'Anime', keyless: true, note: 'P2P' },
+];
